@@ -1,7 +1,6 @@
 {
-  "name": "allure",
+  "name": "allure-planner-app-backend",
   "version": "1.0.0",
-  "description": "Event manager app",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
