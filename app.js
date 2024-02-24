@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const Event = require("./models/Event.model");
+const Wedding = require("./models/Wedding.model");
 const User = require("./models/User.model");
 const Query = require("./models/Query.model")
 const cors = require("cors");
@@ -25,19 +25,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-//EVENTS
-app.get("/events", (req, res) => {
-    Event.find()
-        .then((events) => {
-            res.json(events);
+//WEDDINGS
+app.get("/weddings", (req, res) => {
+    Wedding.find()
+        .then((weddings) => {
+            res.json(weddings);
             console.log("server side")
         })
         .catch((error) => {
-            console.log("Unable to get events -> " + err);
-            next({...err, message: "Unable to get events"});
+            console.log("Unable to get weddings -> " + err);
+            next({...err, message: "Unable to get weddings"});
         });
 });
-app.post("/events", (req, res, next) => {
+app.post("/weddings", (req, res, next) => {
 
     console.log("app.post: ", req.body)
     const {
@@ -51,7 +51,7 @@ app.post("/events", (req, res, next) => {
         guestList
       } = req.body
 
-    const newEvent = {
+    const newWedding = {
         bride,
         groom,
         date,
@@ -62,20 +62,20 @@ app.post("/events", (req, res, next) => {
         guestList
       }
 
-    Event.create(newEvent)
-        .then((event) => {
-            res.status(201).json(event);
+    Wedding.create(newWedding)
+        .then((wedding) => {
+            res.status(201).json(wedding);
         })
         .catch((err) => {
-            console.log("Failed to create event -> " + err);
-            next({...err, message: "Failed to create event"});
+            console.log("Failed to create wedding -> " + err);
+            next({...err, message: "Failed to create wedding"});
         });
 });
 
 
-//EVENT
-app.put("/events/:eventId", (req, res, next) => {
-    const eventId = req.params.eventId;
+//WEDDING
+app.put("/weddings/:weddingId", (req, res, next) => {
+    const weddingId = req.params.weddingId;
 
     const {
         bride,
@@ -88,7 +88,7 @@ app.put("/events/:eventId", (req, res, next) => {
         guestList
       } = req.body
 
-   const newEvent = {
+   const newWedding = {
         bride,
         groom,
         date,
@@ -99,35 +99,35 @@ app.put("/events/:eventId", (req, res, next) => {
         guestList
       }
 
-    Event.findByIdAndUpdate(eventId, newEvent, { new: true })
-        .then((event) => {
-            res.status(201).json(event);
+    Wedding.findByIdAndUpdate(weddingId, newWedding, { new: true })
+        .then((wedding) => {
+            res.status(201).json(wedding);
         })
         .catch((err) => {
-            console.log("Failed to update event -> " + err);
-            next({...err, message: "Failed to update event"});
+            console.log("Failed to update wedding -> " + err);
+            next({...err, message: "Failed to update wedding"});
         });
 });
-app.delete("/events/:eventId", (req, res, next) => {
-    const eventId = req.params.eventId;
-    Event.findByIdAndDelete(eventId)
+app.delete("/weddings/:weddingId", (req, res, next) => {
+    const weddingId = req.params.weddingId;
+    Wedding.findByIdAndDelete(weddingId)
         .then(() => {
             res.status(204).send();
         })
         .catch((err) => {
-            console.log("Failed to delete event -> " + err);
-            next({...err, message: "Failed to delete event"});
+            console.log("Failed to delete wedding -> " + err);
+            next({...err, message: "Failed to delete wedding"});
         });
 });
-app.get("/events/:eventId", (req, res, next) => {
-    const eventId = req.params.eventId;
-    Event.findById(eventId)
-        .then((event) => {
-            res.status(200).json(event);
+app.get("/weddings/:weddingId", (req, res, next) => {
+    const weddingId = req.params.weddingId;
+    Wedding.findById(weddingId)
+        .then((wedding) => {
+            res.status(200).json(wedding);
         })
         .catch((err) => {
-            console.log("Unable to get event -> " + err);
-            next({...err, message: "Unable to get event"});
+            console.log("Unable to get wedding -> " + err);
+            next({...err, message: "Unable to get wedding"});
         });
 });
 

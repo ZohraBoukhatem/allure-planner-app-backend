@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const eventSchema = new Schema(
+const weddingSchema = new Schema(
     {
         bride: {
             brideFirstName: {
@@ -63,6 +63,6 @@ const eventSchema = new Schema(
         ] 
     }
 )
-const Event = mongoose.model("Event", eventSchema);
+const Wedding = mongoose.model("Wedding", weddingSchema);
 
-module.exports = Event;
+module.exports = Wedding;
