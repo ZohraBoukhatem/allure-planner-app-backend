@@ -203,7 +203,7 @@ app.get("/queries", (req, res, next) => {
     });
 })
 app.put("/queries", (req, res, next) => {
-    console.log("this is server")
+    console.log("this is the server")
     const {
         queryId,
         read
@@ -213,8 +213,9 @@ app.put("/queries", (req, res, next) => {
             queryId, 
             read
         }
-    Query.findByIdAndUpdate(queryId, updatedQuery, {new:true})
-    .then(() =>{
+    Query.findByIdAndUpdate(queryId, updatedQuery, { new:true })
+    .then((query) =>{
+        res.status(201).json(query)
         console.log("Query updated in server")
         console.log(queryId)
         console.log(updatedQuery)
